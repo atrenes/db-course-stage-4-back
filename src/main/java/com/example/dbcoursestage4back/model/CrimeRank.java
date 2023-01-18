@@ -2,6 +2,9 @@ package com.example.dbcoursestage4back.model;
 
 import jakarta.persistence.*;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "crime_rank")
 public class CrimeRank {
@@ -9,6 +12,28 @@ public class CrimeRank {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
+
+    @Column(name = "type", nullable = false)
+    private String type;
+
+    @OneToMany(mappedBy = "crimeRank")
+    private Set<Crime> crimes = new LinkedHashSet<>();
+
+    public Set<Crime> getCrimes() {
+        return crimes;
+    }
+
+    public void setCrimes(Set<Crime> crimes) {
+        this.crimes = crimes;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public Integer getId() {
         return id;
@@ -18,5 +43,4 @@ public class CrimeRank {
         this.id = id;
     }
 
-    //TODO Reverse Engineering! Migrate other columns to the entity
 }

@@ -13,22 +13,4 @@ import java.util.stream.Collectors;
 public class NinjaService {
     @Autowired
     private NinjaRepository ninjaRepository;
-
-    public List<NinjaDto> findAll() {
-        return ninjaRepository.findAll().stream().map(this::convertToNinjaDto).collect(Collectors.toList());
-    }
-
-    private NinjaDto convertToNinjaDto(Ninja ninja) {
-        return new NinjaDto(
-                ninja.getName(),
-                ninja.getClan().getName(),
-                ninja.getEye() == null ? "default eyes" : ninja.getEye().getType(),
-                ninja.getRank().getType(),
-                ninja.getChakraAmount(),
-                ninja.getCriminalNum(),
-                ninja.getCriminalGroup() == null ? "not criminal" : ninja.getCriminalGroup().getName(),
-                ninja.getIsCriminal(),
-                ninja.getVillage().getName()
-        );
-    }
 }

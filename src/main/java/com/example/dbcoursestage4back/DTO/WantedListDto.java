@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class WantedListDto implements Serializable {
+    private final Integer id;
     private final String wantedNinjaName;
     private final Boolean isCaptured;
     private final String executorNinjaName;
@@ -12,13 +13,18 @@ public class WantedListDto implements Serializable {
     private final LocalDate dateOfSearchStart;
     private final LocalDate dateOfCapture;
 
-    public WantedListDto(String wantedNinjaName, Boolean isCaptured, String executorNinjaName, String description, LocalDate dateOfSearchStart, LocalDate dateOfCapture) {
+    public WantedListDto(Integer id, String wantedNinjaName, Boolean isCaptured, String executorNinjaName, String description, LocalDate dateOfSearchStart, LocalDate dateOfCapture) {
+        this.id = id;
         this.wantedNinjaName = wantedNinjaName;
         this.isCaptured = isCaptured;
         this.executorNinjaName = executorNinjaName;
         this.description = description;
         this.dateOfSearchStart = dateOfSearchStart;
         this.dateOfCapture = dateOfCapture;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public String getWantedNinjaName() {
@@ -66,6 +72,7 @@ public class WantedListDto implements Serializable {
     @Override
     public String toString() {
         return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
                 "wantedNinjaName = " + wantedNinjaName + ", " +
                 "isCaptured = " + isCaptured + ", " +
                 "executorNinjaName = " + executorNinjaName + ", " +

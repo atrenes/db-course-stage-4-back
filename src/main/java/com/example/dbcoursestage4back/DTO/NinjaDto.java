@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class NinjaDto implements Serializable {
+    private final Integer id;
     private final String name;
     private final String clan;
     private final String eye;
@@ -16,7 +17,8 @@ public class NinjaDto implements Serializable {
     private final Boolean isCriminal;
     private final String village;
 
-    public NinjaDto(String name, String clan, String eye, String rank, Integer chakraAmount, Integer criminalNum, String criminalGroup, Boolean isCriminal, String village) {
+    public NinjaDto(Integer id, String name, String clan, String eye, String rank, Integer chakraAmount, Integer criminalNum, String criminalGroup, Boolean isCriminal, String village) {
+        this.id = id;
         this.name = name;
         this.clan = clan;
         this.eye = eye;
@@ -26,6 +28,10 @@ public class NinjaDto implements Serializable {
         this.criminalGroup = criminalGroup;
         this.isCriminal = isCriminal;
         this.village = village;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public String getName() {
@@ -88,6 +94,7 @@ public class NinjaDto implements Serializable {
     @Override
     public String toString() {
         return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
                 "name = " + name + ", " +
                 "clan = " + clan + ", " +
                 "eye = " + eye + ", " +

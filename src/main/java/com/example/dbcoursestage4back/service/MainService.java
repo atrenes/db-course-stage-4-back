@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,8 +29,22 @@ public class MainService {
         return wantedRepository.findAll().stream().map(this::convertToWantedListDto).collect(Collectors.toList());
     }
 
+    public Optional<NinjaDto> getNinjaById(Integer id) {
+        return ninjaRepository.findById(id).map(this::convertToNinjaDto);
+    }
+
+    public List<NinjaDto> getWantedExecutors(Integer wantedId) {
+        Optional<WantedListDto> wanted = wantedRepository.findById(wantedId).map(this::convertToWantedListDto);
+        if (wanted.isPresent()) {
+            int chakra = ninjaRepository.findById(wanted.get().getId()).get().getChakraAmount();
+            return ninjaRepository.findAll().stream().map(this::convertToNinjaDto).filter(n -> n.getChakraAmount() >= chakra && !n.getIsCriminal()).collect(Collectors.toList());
+        }
+        return null;
+    }
+
     private NinjaDto convertToNinjaDto(Ninja ninja) {
         return new NinjaDto(
+                ninja.getId(),
                 ninja.getName(),
                 ninja.getClan().getName(),
                 ninja.getEye() == null ? "default eyes" : ninja.getEye().getType(),
@@ -44,6 +59,7 @@ public class MainService {
 
     private WantedListDto convertToWantedListDto(WantedList wantedList) {
         return new WantedListDto(
+                wantedList.getId(),
                 wantedList.getWantedNinja().getName(),
                 wantedList.getIsCaptured(),
                 wantedList.getExecutorNinja() == null ? "-" : wantedList.getExecutorNinja().getName(),

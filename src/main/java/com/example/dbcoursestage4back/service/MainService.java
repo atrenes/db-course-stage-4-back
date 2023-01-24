@@ -2,10 +2,13 @@ package com.example.dbcoursestage4back.service;
 
 import com.example.dbcoursestage4back.DTO.DescriptionDto;
 import com.example.dbcoursestage4back.DTO.NinjaDto;
+import com.example.dbcoursestage4back.DTO.TechniqueDto;
 import com.example.dbcoursestage4back.DTO.WantedListDto;
 import com.example.dbcoursestage4back.model.Ninja;
+import com.example.dbcoursestage4back.model.Technique;
 import com.example.dbcoursestage4back.model.WantedList;
 import com.example.dbcoursestage4back.repository.NinjaRepository;
+import com.example.dbcoursestage4back.repository.TechniqueRepository;
 import com.example.dbcoursestage4back.repository.WantedRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,9 @@ public class MainService {
 
     @Autowired
     private WantedRepository wantedRepository;
+
+    @Autowired
+    private TechniqueRepository techniqueRepository;
 
     public List<NinjaDto> findAllNinjas() {
         return ninjaRepository.findAll().stream().map(this::convertToNinjaDto).collect(Collectors.toList());
@@ -47,6 +53,10 @@ public class MainService {
         return wantedRepository.findAll().stream().map(this::convertToDescriptionDto).collect(Collectors.toList());
     }
 
+    public List<TechniqueDto> getTechniques() {
+        return techniqueRepository.findAll().stream().map(this::convertToTechniqueDto).collect(Collectors.toList());
+    }
+
     private NinjaDto convertToNinjaDto(Ninja ninja) {
         return new NinjaDto(
                 ninja.getId(),
@@ -71,6 +81,16 @@ public class MainService {
                 wantedList.getDescription(),
                 wantedList.getDateOfSearchStart(),
                 wantedList.getDateOfCapture()
+        );
+    }
+
+    private TechniqueDto convertToTechniqueDto(Technique technique) {
+        return new TechniqueDto(
+                technique.getId(),
+                technique.getClan().getName(),
+                technique.getName(),
+                technique.getType().getType(),
+                technique.getChakraCost()
         );
     }
 

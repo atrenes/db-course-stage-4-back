@@ -2,6 +2,7 @@ package com.example.dbcoursestage4back;
 
 import com.example.dbcoursestage4back.DTO.DescriptionDto;
 import com.example.dbcoursestage4back.DTO.NinjaDto;
+import com.example.dbcoursestage4back.DTO.TechniqueDto;
 import com.example.dbcoursestage4back.DTO.WantedListDto;
 import com.example.dbcoursestage4back.model.Ninja;
 //import com.example.dbcoursestage4back.service.NinjaService;
@@ -49,6 +50,11 @@ public class MainController {
 //    public List<DescriptionDto> getDescription() {
 //        return mainService.getDescriptionDto();
 //    }
+
+    @GetMapping("/techniques")
+    public List<TechniqueDto> getTechniques(){
+        return mainService.getTechniques();
+    }
 
     @PostMapping(path = "/wanted/addDescription", consumes = "application/json")
     public String addWantedDescription(@RequestBody DescriptionDto descriptionDto){

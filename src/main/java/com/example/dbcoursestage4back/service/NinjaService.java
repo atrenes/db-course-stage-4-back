@@ -15,6 +15,9 @@ public class NinjaService {
     @Autowired
     private NinjaRepository ninjaRepository;
 
+    public void save(Ninja ninja){
+        ninjaRepository.save(ninja);
+    }
 //    public Optional<Ninja> findById(Integer id){
 //        return ninjaRepository.findById(id);
 //    }

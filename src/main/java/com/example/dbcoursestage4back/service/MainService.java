@@ -1,5 +1,6 @@
 package com.example.dbcoursestage4back.service;
 
+import com.example.dbcoursestage4back.DTO.DescriptionDto;
 import com.example.dbcoursestage4back.DTO.NinjaDto;
 import com.example.dbcoursestage4back.DTO.WantedListDto;
 import com.example.dbcoursestage4back.model.Ninja;
@@ -42,6 +43,10 @@ public class MainService {
         return null;
     }
 
+    public List<DescriptionDto> getDescriptionDto() {
+        return wantedRepository.findAll().stream().map(this::convertToDescriptionDto).collect(Collectors.toList());
+    }
+
     private NinjaDto convertToNinjaDto(Ninja ninja) {
         return new NinjaDto(
                 ninja.getId(),
@@ -66,6 +71,13 @@ public class MainService {
                 wantedList.getDescription(),
                 wantedList.getDateOfSearchStart(),
                 wantedList.getDateOfCapture()
+        );
+    }
+
+    private DescriptionDto convertToDescriptionDto(WantedList wantedList) {
+        return new DescriptionDto(
+                wantedList.getId(),
+                wantedList.getDescription()
         );
     }
 }
